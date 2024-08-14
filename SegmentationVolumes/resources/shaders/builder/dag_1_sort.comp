@@ -1,0 +1,260 @@
+/*
+GPU Bitonic Merge Sort by https://github.com/tgfrerer
+https://poniesandlight.co.uk/reflect/bitonic_merge_sort/
+https://github.com/tgfrerer/island/tree/wip/apps/examples/bitonic_merge_sort_example
+
+Edited and extended for this project, including
+- support for arbitrary data types
+- support for arbitrary number of elements
+*/
+
+#version 450 core
+#extension GL_GOOGLE_include_directive: enable
+
+// This shader implements a sorting network for 1024 elements.
+//
+// It is follows the alternative notation for bitonic sorting networks, as given at:
+// https://en.m.wikipedia.org/wiki/Bitonic_sorter#Alternative_representation
+
+#extension GL_ARB_separate_shader_objects : enable
+#extension GL_ARB_shading_language_420pack : enable
+
+// Note that there exist hardware limits - look these up for your GPU via https://vulkan.gpuinfo.org/
+// sizeof(local_value[]) : Must be <= maxComputeSharedMemorySize
+// local_size_x          : Must be <= maxComputeWorkGroupInvocations
+
+
+// ENUM for uniform::Parameters.algorithm:
+#define eLocalBitonicMergeSortExample   0
+#define eLocalDisperse                  1
+#define eBigFlip                        2
+#define eBigDisperse                    3
+
+#include "dag_common.glsl"
+
+#define SORT_TYPE DAGNode
+#define SORT_KEY(sortType) hash(sortType)
+#define SORT_TYPE_MAX_VALUE DAGNode(0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u)
+
+layout (local_size_x_id = 0, local_size_y_id = 1, local_size_z_id = 2) in;
+
+layout (push_constant, std430) uniform PushConstants {
+    uint numElements;
+    uint globalOffset;
+    uint h;
+    uint algorithm;
+} parameters;
+
+layout (set=0, binding = 0) buffer SortData
+{
+// This is our unsorted input buffer - tightly packed,
+// an array of N_GLOBAL_ELEMENTS elements.
+    SORT_TYPE value[];
+};
+layout (set=0, binding = 1) buffer SortAdditionalData
+{
+// This is our unsorted input buffer - tightly packed,
+// an array of N_GLOBAL_ELEMENTS elements.
+    uint additionalValue[];
+};
+
+// Workgroup local memory. We use this to minimise round-trips to global memory.
+// It allows us to evaluate a sorting network of up to 1024 with one shader invocation.
+shared SORT_TYPE local_value[gl_WorkGroupSize.x * 2];
+shared uint local_additional_value[gl_WorkGroupSize.x * 2];
+
+// naive comparison
+bool is_larger(in const SORT_TYPE left, in const SORT_TYPE right) {
+    return SORT_KEY(left) > SORT_KEY(right);
+}
+
+// Pick comparison funtion: for colors we might want to compare perceptual brightness
+// instead of a naive straight integer value comparison.
+#define COMPARE is_larger
+
+void global_compare_and_swap(ivec2 idx){
+    if (idx.x >= parameters.numElements || idx.y >= parameters.numElements) {
+        return;
+    }
+
+    SORT_TYPE left = value[parameters.globalOffset + idx.x];
+    SORT_TYPE right = value[parameters.globalOffset + idx.y];
+
+    if (COMPARE(left, right)) {
+        value[parameters.globalOffset + idx.x] = right;
+        value[parameters.globalOffset + idx.y] = left;
+
+        uint additionalTmp = additionalValue[parameters.globalOffset + idx.x];
+        additionalValue[parameters.globalOffset + idx.x] = additionalValue[parameters.globalOffset + idx.y];
+        additionalValue[parameters.globalOffset + idx.y] = additionalTmp;
+    }
+}
+
+// Performs compare-and-swap over elements held in shared,
+// workgroup-local memory
+void local_compare_and_swap(ivec2 idx){
+    uint additionalLeft = local_additional_value[idx.x];
+    uint additionalRight = local_additional_value[idx.y];
+
+    if (additionalLeft == 0xFFFFFFFF || additionalRight == 0xFFFFFFFF) {
+        return;
+    }
+//    if (additionalLeft == 0xFFFFFFFF && additionalRight == 0xFFFFFFFF) {
+//        return;
+//    }
+//    if (additionalRight == 0xFFFFFFFF) {
+//        return;
+//    }
+
+    SORT_TYPE left = local_value[idx.x];
+    SORT_TYPE right = local_value[idx.y];
+
+    if (COMPARE(left, right)) {
+        local_value[idx.x] = right;
+        local_value[idx.y] = left;
+
+        local_additional_value[idx.x] = additionalRight;
+        local_additional_value[idx.y] = additionalLeft;
+    }
+}
+
+// Performs full-height flip (h height) over globally available indices.
+void big_flip( in uint h) {
+
+    uint t_prime = gl_GlobalInvocationID.x;
+    uint half_h = h >> 1; // Note: h >> 1 is equivalent to h / 2
+
+    uint q       = ((2 * t_prime) / h) * h;
+    uint x       = q     + (t_prime % half_h);
+    uint y       = q + h - (t_prime % half_h) - 1;
+
+
+    global_compare_and_swap(ivec2(x,y));
+}
+
+// Performs full-height disperse (h height) over globally available indices.
+void big_disperse( in uint h ) {
+
+    uint t_prime = gl_GlobalInvocationID.x;
+
+    uint half_h = h >> 1; // Note: h >> 1 is equivalent to h / 2
+
+    uint q       = ((2 * t_prime) / h) * h;
+    uint x       = q + (t_prime % (half_h));
+    uint y       = q + (t_prime % (half_h)) + half_h;
+
+    global_compare_and_swap(ivec2(x,y));
+
+}
+
+// Performs full-height flip (h height) over locally available indices.
+void local_flip(in uint h){
+    uint t = gl_LocalInvocationID.x;
+    barrier();
+
+    uint half_h = h >> 1; // Note: h >> 1 is equivalent to h / 2
+    ivec2 indices =
+    ivec2( h * ( ( 2 * t ) / h ) ) +
+    ivec2( t % half_h, h - 1 - ( t % half_h ) );
+
+    local_compare_and_swap(indices);
+}
+
+// Performs progressively diminishing disperse operations (starting with height h)
+// on locally available indices: e.g. h==8 -> 8 : 4 : 2.
+// One disperse operation for every time we can divide h by 2.
+void local_disperse(in uint h){
+    uint t = gl_LocalInvocationID.x;
+    for ( ; h > 1 ; h /= 2 ) {
+
+        barrier();
+
+        uint half_h = h >> 1; // Note: h >> 1 is equivalent to h / 2
+        ivec2 indices =
+        ivec2( h * ( ( 2 * t ) / h ) ) +
+        ivec2( t % half_h, half_h + ( t % half_h ) );
+
+        local_compare_and_swap(indices);
+    }
+}
+
+// Perform binary merge sort for local elements, up to a maximum number
+// of elements h.
+void local_bms(uint h){
+    uint t = gl_LocalInvocationID.x;
+    for ( uint hh = 2; hh <= h; hh <<= 1 ) {  // note:  h <<= 1 is same as h *= 2
+        local_flip( hh);
+        local_disperse( hh/2 );
+    }
+}
+
+void main(){
+
+    uint t = gl_LocalInvocationID.x;
+
+    // Calculate global offset for local workgroup
+    uint offset = gl_WorkGroupSize.x * 2 * gl_WorkGroupID.x;
+
+    // This shader can be called in four different modes:
+    //
+    //  1. local flip+disperse (up to n == local_size_x * 2)
+    //  2. big flip
+    //  3. big disperse
+    //  4. local disperse
+    //
+    // Which one to choose is communicated via parameters.algorithm
+
+    if (parameters.algorithm <= eLocalDisperse){
+        // In case this shader executes a `local_` algorithm, we must
+        // first populate the workgroup's local memory.
+        //
+        SORT_TYPE v0 = SORT_TYPE_MAX_VALUE;
+        SORT_TYPE v1 = SORT_TYPE_MAX_VALUE;
+        uint additionalV0 = 0xFFFFFFFF;
+        uint additionalV1 = 0xFFFFFFFF;
+        if (offset+t*2 < parameters.numElements) {
+            v0 = value[parameters.globalOffset + offset+t*2];
+            additionalV0 = additionalValue[parameters.globalOffset + offset+t*2];
+        }
+        if (offset+t*2+1 < parameters.numElements) {
+            v1 = value[parameters.globalOffset + offset+t*2+1];
+            additionalV1 = additionalValue[parameters.globalOffset + offset+t*2+1];
+        }
+        local_value[t*2]   = v0;
+        local_value[t*2+1] = v1;
+        local_additional_value[t*2]   = additionalV0;
+        local_additional_value[t*2+1] = additionalV1;
+    }
+
+    switch (parameters.algorithm){
+        case eLocalBitonicMergeSortExample:
+        local_bms(parameters.h);
+        break;
+        case eLocalDisperse:
+        local_disperse(parameters.h);
+        break;
+        case eBigFlip:
+        big_flip(parameters.h);
+        break;
+        case eBigDisperse:
+        big_disperse(parameters.h);
+        break;
+    }
+
+    // Write local memory back to buffer in case we pulled in the first place.
+    //
+    if (parameters.algorithm <= eLocalDisperse){
+        barrier();
+        // push to global memory
+        if (offset+t*2 < parameters.numElements) {
+            value[parameters.globalOffset + offset+t*2]   = local_value[t*2];
+            additionalValue[parameters.globalOffset + offset+t*2]   = local_additional_value[t*2];
+        }
+        if (offset+t*2+1 < parameters.numElements) {
+            value[parameters.globalOffset + offset+t*2+1] = local_value[t*2+1];
+            additionalValue[parameters.globalOffset + offset+t*2+1] = local_additional_value[t*2+1];
+        }
+    }
+
+
+}

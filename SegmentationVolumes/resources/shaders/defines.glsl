@@ -1,0 +1,8 @@
+#ifndef DEFINES_GLSL
+#define DEFINES_GLSL
+
+#define LOD_TYPE_SVO 0
+#define LOD_TYPE_SVDAG 1
+#define LOD_TYPE_SVDAG_OCCUPANCY_FIELD 2
+
+#endif

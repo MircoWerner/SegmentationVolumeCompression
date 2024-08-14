@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<scene>
+	<volumes>
+		<volume name="celegans/svdag" translate="0 0 0" scale="30 1 1" />
+	</volumes>
+	<camera position="3733 15955 11733" rotation="0 3.525 1.944" speed="1000" />
+	<material generator="cells" count="512" />
+	<renderer maxFrames="1024" tonemapper="1" renderer="0" debug="0" spp="1" lod="0" lodDisableOnFirstFrame="false" lodDistance="false" lodDistanceVoxel="512" lodDistanceOctree="1024" bounces="1" />
+	<window width="1920" height="1080" />
+</scene>

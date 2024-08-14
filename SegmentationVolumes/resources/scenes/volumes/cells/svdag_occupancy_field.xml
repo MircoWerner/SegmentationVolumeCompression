@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<volume>
+    <info type="nastja" folder="cells/svdag_occupancy_field"/>
+    <aabbs>
+        <aabb name="type1" type="default" lod="1" enabled="true"/>
+        <aabb name="type6" type="default" lod="6" enabled="true"/>
+        <aabb name="type7" type="default" lod="7" enabled="true"/>
+        <aabb name="type8" type="default" lod="8" enabled="true"/>
+        <aabb name="type9" type="default" lod="9" enabled="true"/>
+        <aabb name="type10" type="default" lod="10" enabled="true"/>
+        <aabb name="type11" type="default" lod="11" enabled="true"/>
+        <aabb name="type12" type="default" lod="12" enabled="true"/>
+        <aabb name="type13" type="default" lod="13" enabled="true"/>
+        <aabb name="type14" type="default" lod="14" enabled="true"/>
+        <aabb name="type15" type="default" lod="15" enabled="true"/>
+        <aabb name="type16" type="default" lod="16" enabled="true"/>
+        <aabb name="type17" type="default" lod="17" enabled="true"/>
+        <aabb name="type18" type="default" lod="18" enabled="true"/>
+        <aabb name="type19" type="default" lod="19" enabled="true"/>
+        <aabb name="type20" type="default" lod="20" enabled="true"/>
+        <aabb name="type21" type="default" lod="21" enabled="true"/>
+        <aabb name="type22" type="default" lod="22" enabled="true"/>
+        <aabb name="type23" type="default" lod="23" enabled="true"/>
+        <aabb name="type24" type="default" lod="24" enabled="true"/>
+        <aabb name="type25" type="default" lod="25" enabled="true"/>
+        <aabb name="type26" type="default" lod="26" enabled="true"/>
+        <aabb name="type27" type="default" lod="27" enabled="true"/>
+    </aabbs>
+    <lods>
+        <lod key="1" name="type1" type="svdag_occupancy_field"/>
+        <lod key="6" name="type6" type="svdag_occupancy_field"/>
+        <lod key="7" name="type7" type="svdag_occupancy_field"/>
+        <lod key="8" name="type8" type="svdag_occupancy_field"/>
+        <lod key="9" name="type9" type="svdag_occupancy_field"/>
+        <lod key="10" name="type10" type="svdag_occupancy_field"/>
+        <lod key="11" name="type11" type="svdag_occupancy_field"/>
+        <lod key="12" name="type12" type="svdag_occupancy_field"/>
+        <lod key="13" name="type13" type="svdag_occupancy_field"/>
+        <lod key="14" name="type14" type="svdag_occupancy_field"/>
+        <lod key="15" name="type15" type="svdag_occupancy_field"/>
+        <lod key="16" name="type16" type="svdag_occupancy_field"/>
+        <lod key="17" name="type17" type="svdag_occupancy_field"/>
+        <lod key="18" name="type18" type="svdag_occupancy_field"/>
+        <lod key="19" name="type19" type="svdag_occupancy_field"/>
+        <lod key="20" name="type20" type="svdag_occupancy_field"/>
+        <lod key="21" name="type21" type="svdag_occupancy_field"/>
+        <lod key="22" name="type22" type="svdag_occupancy_field"/>
+        <lod key="23" name="type23" type="svdag_occupancy_field"/>
+        <lod key="24" name="type24" type="svdag_occupancy_field"/>
+        <lod key="25" name="type25" type="svdag_occupancy_field"/>
+        <lod key="26" name="type26" type="svdag_occupancy_field"/>
+        <lod key="27" name="type27" type="svdag_occupancy_field"/>
+    </lods>
+</volume>

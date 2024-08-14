@@ -1,0 +1,193 @@
+#version 460
+#extension GL_GOOGLE_include_directive: enable
+#extension GL_EXT_nonuniform_qualifier: enable
+#extension GL_EXT_scalar_block_layout: enable
+#extension GL_EXT_shader_explicit_arithmetic_types_int64: require
+#extension GL_EXT_shader_explicit_arithmetic_types_int16: require
+#extension GL_EXT_buffer_reference2: require
+#extension GL_EXT_ray_query : require
+
+#include "../../defines.glsl"
+
+#include "../../utility/constants.glsl"
+#include "../../utility/random.glsl"
+#include "../../utility/colormap.glsl"
+#include "../../utility/color.glsl"
+#include "../../raystructs.glsl"
+#include "../../raycommon.glsl"
+
+layout (local_size_x_id = 0, local_size_y_id = 1, local_size_z_id = 2) in;
+layout (constant_id = 3) const uint g_lodType = 0;
+
+layout (push_constant, std430) uniform PushConstants {
+    int g_pixels_x;
+    int g_pixels_y;
+
+    float g_ray_origin_x;
+    float g_ray_origin_y;
+    float g_ray_origin_z;
+    float g_ray_left_bottom_x;
+    float g_ray_left_bottom_y;
+    float g_ray_left_bottom_z;
+    float g_ray_left_top_x;
+    float g_ray_left_top_y;
+    float g_ray_left_top_z;
+    float g_ray_right_bottom_x;
+    float g_ray_right_bottom_y;
+    float g_ray_right_bottom_z;
+    float g_ray_right_top_x;
+    float g_ray_right_top_y;
+    float g_ray_right_top_z;
+
+    uint g_frame;
+
+    uint g_rng_init;
+    uint g_rng_init_offset;
+};
+
+layout (set = 0, binding = 0) uniform accelerationStructureEXT topLevelAS;
+layout (set = 0, binding = 1, rgba32f) uniform image2D framebuffer;
+layout (set = 0, binding = 2, rgba32f) uniform image2D accumulationBuffer;
+
+layout (std430, set = 0, binding = 3) uniform options_pass {
+    mat4 g_view_to_clip_space;
+    mat4 g_world_to_view_space;
+
+    uint g_debug_mode;
+
+    uint g_num_lights;
+
+    uint g_environment_map;
+    vec2 g_environment_map_rotation;
+    vec3 g_sky_color;
+
+    mat4 g_vp;// view projection of this frame
+    mat4 g_vp_prev;// view projection of previous frame
+
+    uint g_lod;
+    uint g_lodDisableOnFirstFrame;
+    uint g_lodDistance;
+    uint g_lodDistanceVoxel;
+    uint g_lodDistanceOctree;
+
+    uint g_num_instances;
+
+    uint g_label_metadata;
+    uint g_label_metadata_jitter_albedo;
+
+    uint g_spheres;
+};
+
+// SCENE
+layout (set = 0, binding = 10, scalar) readonly buffer buffer_object_descriptor { ObjectDescriptor g_objectDescriptors[]; };
+layout (set = 0, binding = 11, scalar) readonly buffer buffer_material { Material g_materials[]; };
+
+layout (buffer_reference, scalar) readonly buffer buffer_aabb { AABB g_aabbs[]; };
+layout (buffer_reference, scalar) readonly buffer buffer_svdag { SVDAG g_svdag[]; };
+layout (buffer_reference, scalar) readonly buffer buffer_svo { uint16_t g_svo[]; };
+
+layout (set = 0, binding = 21) uniform sampler2D textureEnvironment;
+
+#include "../../trace/trace_rayquery.glsl"
+#include "../../environment.glsl"
+#include "../../material.glsl"
+
+void debug(inout uint rngState, in ivec2 pixel, in vec3 direction) {
+    vec3 debugColor = vec3(0);
+
+    if (g_debug_mode == RENDER_MODE_COLORMAP) {
+        vec2 uv = pixel / vec2(g_pixels_x, g_pixels_y);
+        if (uv.y < 0.25) {
+            debugColor = colormap_viridis(uv.x);
+        } else if (uv.y < 0.5) {
+            debugColor = colormap_plasma(uv.x);
+        } else if (uv.y < 0.75) {
+            debugColor = colormap_magma(uv.x);
+        } else {
+            debugColor = colormap_inferno(uv.x);
+        }
+        debugColor = colormap_inverse_tonemapper_gamma(debugColor);
+
+        const vec3 newColor = mix(imageLoad(accumulationBuffer, pixel).rgb, debugColor, 1.0 / float(g_frame + 1));
+        imageStore(accumulationBuffer, pixel, vec4(newColor, 1.0));
+        imageStore(framebuffer, pixel, vec4(newColor, 1.0));
+        return;
+    }
+
+    if (g_num_instances == 0) {
+        const vec3 newColor = environment_evaluate(direction);
+        imageStore(accumulationBuffer, pixel, vec4(newColor, 1.0));
+        imageStore(framebuffer, pixel, vec4(newColor, 1.0));
+        return;
+    }
+
+    const vec3 origin = vec3(g_ray_origin_x, g_ray_origin_y, g_ray_origin_z);
+
+    HitPayload payload;
+
+    if (!trace(origin, direction, 0, 100000.0, payload)) {
+        debugColor = environment_evaluate(direction);
+
+        // accumulate and write framebuffer
+        uint frame = (g_lod == 0 || g_lodDisableOnFirstFrame == 0) ? g_frame : (g_frame == 0 ? 0 : g_frame - 1);
+        const vec3 newColor = mix(imageLoad(accumulationBuffer, pixel).rgb, debugColor, 1.0 / float(frame + 1));
+        imageStore(accumulationBuffer, pixel, vec4(newColor, 1.0));
+        imageStore(framebuffer, pixel, vec4(newColor, 1.0));
+
+        return;
+    }
+
+    vec3 position;
+    vec3 normal;
+    Material material;
+
+    intersectionInfo(payload, origin, direction, position, normal, material);
+
+    if (g_debug_mode == RENDER_MODE_POSITION) {
+        debugColor = vec3(0.5) + 0.5 * position;
+    } else if (g_debug_mode == RENDER_MODE_NORMAL) {
+        debugColor = vec3(0.5) + 0.5 * normal;
+    } else if (g_debug_mode == RENDER_MODE_BASE_COLOR) {
+        debugColor = material.baseColor;
+    } else if (g_debug_mode == RENDER_MODE_OBJECT_DESCRIPTOR) {
+        uint rngState = payload.objectDescriptorId;
+        debugColor = vec3(nextFloat(rngState), nextFloat(rngState), nextFloat(rngState));
+    } else if (g_debug_mode == RENDER_MODE_PRIMITIVE) {
+        uint rngState = payload.objectDescriptorId ^ payload.primitiveId;
+        debugColor = vec3(nextFloat(rngState), nextFloat(rngState), nextFloat(rngState));
+    } else {
+        debugColor = vec3(1, 0, 1);
+    }
+
+    // accumulate and write framebuffer
+    uint frame = (g_lod == 0 || g_lodDisableOnFirstFrame == 0) ? g_frame : (g_frame == 0 ? 0 : g_frame - 1);
+    const vec3 newColor = mix(imageLoad(accumulationBuffer, pixel).rgb, debugColor, 1.0 / float(frame + 1));
+    imageStore(accumulationBuffer, pixel, vec4(newColor, 1.0));
+    imageStore(framebuffer, pixel, vec4(newColor, 1.0));
+}
+
+void main() {
+    const ivec2 pixel = ivec2(gl_GlobalInvocationID.xy);
+    if (any(greaterThanEqual(pixel, ivec2(g_pixels_x, g_pixels_y)))) {
+        return;
+    }
+
+    // load direction
+    vec3 direction;
+    {
+        uint pixelState = (g_frame + 1) * g_pixels_x * (pixel.y + 1) + pixel.x;
+        float offsetX = nextFloat(pixelState) - 0.5;// [-0.5,0.5]
+        float offsetY = nextFloat(pixelState) - 0.5;// [-0.5,0.5]
+
+        vec2 pixel_uv = (vec2(pixel.xy) + vec2(0.5) + vec2(offsetX, offsetY)) / vec2(g_pixels_x, g_pixels_y);
+        direction = normalize(mix(
+        mix(vec3(g_ray_left_bottom_x, g_ray_left_bottom_y, g_ray_left_bottom_z), vec3(g_ray_left_top_x, g_ray_left_top_y, g_ray_left_top_z), pixel_uv.y),
+        mix(vec3(g_ray_right_bottom_x, g_ray_right_bottom_y, g_ray_right_bottom_z), vec3(g_ray_right_top_x, g_ray_right_top_y, g_ray_right_top_z), pixel_uv.y),
+        pixel_uv.x));
+    }
+
+    // load rng
+    uint rngState = (g_rng_init + 1) * g_pixels_x * (pixel.y + 1) + pixel.x + g_rng_init_offset;// add offset to avoid same seed as other passes (otherwise, visible artifacts possible)
+
+    debug(rngState, pixel, direction);
+}

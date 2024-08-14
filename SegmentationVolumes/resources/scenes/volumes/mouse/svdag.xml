@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<volume>
+	<info type="mouse" folder="mouse/svdag" />
+	<aabbs>
+		<aabb name="neuron1" type="default" lod="1" enabled="true" />
+		<aabb name="neuron2" type="default" lod="2" enabled="true" />
+		<aabb name="neuron3" type="default" lod="3" enabled="true" />
+		<aabb name="neuron4" type="default" lod="4" enabled="true" />
+		<aabb name="neuron5" type="default" lod="5" enabled="true" />
+		<aabb name="neuron6" type="default" lod="6" enabled="true" />
+		<aabb name="neuron7" type="default" lod="7" enabled="true" />
+		<aabb name="neuron8" type="default" lod="8" enabled="true" />
+		<aabb name="neuron9" type="default" lod="9" enabled="true" />
+		<aabb name="neuron10" type="default" lod="10" enabled="true" />
+		<aabb name="neuron11" type="default" lod="11" enabled="true" />
+		<aabb name="neuron12" type="default" lod="12" enabled="true" />
+		<aabb name="neuron13" type="default" lod="13" enabled="true" />
+		<aabb name="neuron14" type="default" lod="14" enabled="true" />
+		<aabb name="neuron15" type="default" lod="15" enabled="true" />
+		<aabb name="neuron16" type="default" lod="16" enabled="true" />
+		<aabb name="neuron17" type="default" lod="17" enabled="true" />
+		<aabb name="neuron18" type="default" lod="18" enabled="true" />
+		<aabb name="neuron19" type="default" lod="19" enabled="true" />
+		<aabb name="neuron20" type="default" lod="20" enabled="true" />
+		<aabb name="neuron21" type="default" lod="21" enabled="true" />
+		<aabb name="neuron22" type="default" lod="22" enabled="true" />
+		<aabb name="neuron23" type="default" lod="23" enabled="true" />
+		<aabb name="neuron24" type="default" lod="24" enabled="true" />
+		<aabb name="neuron25" type="default" lod="25" enabled="true" />
+		<aabb name="neuron26" type="default" lod="26" enabled="true" />
+		<aabb name="neuron27" type="default" lod="27" enabled="true" />
+		<aabb name="neuron28" type="default" lod="28" enabled="true" />
+		<aabb name="neuron29" type="default" lod="29" enabled="true" />
+		<aabb name="neuron30" type="default" lod="30" enabled="true" />
+		<aabb name="neuron31" type="default" lod="31" enabled="true" />
+		<aabb name="neuron32" type="default" lod="32" enabled="true" />
+		<aabb name="neuron33" type="default" lod="33" enabled="true" />
+		<aabb name="neuron34" type="default" lod="34" enabled="true" />
+		<aabb name="neuron35" type="default" lod="35" enabled="true" />
+		<aabb name="neuron36" type="default" lod="36" enabled="true" />
+		<aabb name="neuron37" type="default" lod="37" enabled="true" />
+		<aabb name="neuron38" type="default" lod="38" enabled="true" />
+		<aabb name="neuron39" type="default" lod="39" enabled="true" />
+		<aabb name="neuron40" type="default" lod="40" enabled="true" />
+		<aabb name="neuron41" type="default" lod="41" enabled="true" />
+		<aabb name="neuron42" type="default" lod="42" enabled="true" />
+		<aabb name="neuron43" type="default" lod="43" enabled="true" />
+		<aabb name="neuron44" type="default" lod="44" enabled="true" />
+		<aabb name="neuron45" type="default" lod="45" enabled="true" />
+		<aabb name="neuron46" type="default" lod="46" enabled="true" />
+		<aabb name="neuron47" type="default" lod="47" enabled="true" />
+		<aabb name="neuron48" type="default" lod="48" enabled="true" />
+		<aabb name="neuron49" type="default" lod="49" enabled="true" />
+		<aabb name="neuron50" type="default" lod="50" enabled="true" />
+		<aabb name="neuron51" type="default" lod="51" enabled="true" />
+		<aabb name="neuron52" type="default" lod="52" enabled="true" />
+		<aabb name="neuron53" type="default" lod="53" enabled="true" />
+		<aabb name="neuron54" type="default" lod="54" enabled="true" />
+		<aabb name="neuron55" type="default" lod="55" enabled="true" />
+		<aabb name="neuron56" type="default" lod="56" enabled="true" />
+		<aabb name="neuron57" type="default" lod="57" enabled="true" />
+		<aabb name="neuron58" type="default" lod="58" enabled="true" />
+		<aabb name="neuron59" type="default" lod="59" enabled="true" />
+		<aabb name="neuron60" type="default" lod="60" enabled="true" />
+		<aabb name="neuron61" type="default" lod="61" enabled="true" />
+		<aabb name="neuron62" type="default" lod="62" enabled="true" />
+		<aabb name="neuron63" type="default" lod="63" enabled="true" />
+		<aabb name="neuron64" type="default" lod="64" enabled="true" />
+		<aabb name="neuron65" type="default" lod="65" enabled="true" />
+		<aabb name="neuron66" type="default" lod="66" enabled="true" />
+		<aabb name="neuron67" type="default" lod="67" enabled="true" />
+		<aabb name="neuron68" type="default" lod="68" enabled="true" />
+		<aabb name="neuron69" type="default" lod="69" enabled="true" />
+		<aabb name="neuron70" type="default" lod="70" enabled="true" />
+		<aabb name="neuron71" type="default" lod="71" enabled="true" />
+		<aabb name="neuron72" type="default" lod="72" enabled="true" />
+		<aabb name="neuron73" type="default" lod="73" enabled="true" />
+		<aabb name="neuron74" type="default" lod="74" enabled="true" />
+		<aabb name="neuron75" type="default" lod="75" enabled="true" />
+		<aabb name="neuron76" type="default" lod="76" enabled="true" />
+		<aabb name="neuron77" type="default" lod="77" enabled="true" />
+		<aabb name="neuron78" type="default" lod="78" enabled="true" />
+		<aabb name="neuron79" type="default" lod="79" enabled="true" />
+		<aabb name="neuron80" type="default" lod="80" enabled="true" />
+		<aabb name="neuron81" type="default" lod="81" enabled="true" />
+		<aabb name="neuron82" type="default" lod="82" enabled="true" />
+		<aabb name="neuron83" type="default" lod="83" enabled="true" />
+		<aabb name="neuron84" type="default" lod="84" enabled="true" />
+		<aabb name="neuron85" type="default" lod="85" enabled="true" />
+		<aabb name="neuron86" type="default" lod="86" enabled="true" />
+		<aabb name="neuron87" type="default" lod="87" enabled="true" />
+		<aabb name="neuron88" type="default" lod="88" enabled="true" />
+		<aabb name="neuron89" type="default" lod="89" enabled="true" />
+		<aabb name="neuron90" type="default" lod="90" enabled="true" />
+		<aabb name="neuron91" type="default" lod="91" enabled="true" />
+		<aabb name="neuron92" type="default" lod="92" enabled="true" />
+		<aabb name="neuron93" type="default" lod="93" enabled="true" />
+		<aabb name="neuron94" type="default" lod="94" enabled="true" />
+		<aabb name="neuron95" type="default" lod="95" enabled="true" />
+		<aabb name="neuron96" type="default" lod="96" enabled="true" />
+	</aabbs>
+	<lods>
+		<lod key="1" name="neuron1" type="svdag" />
+		<lod key="2" name="neuron2" type="svdag" />
+		<lod key="3" name="neuron3" type="svdag" />
+		<lod key="4" name="neuron4" type="svdag" />
+		<lod key="5" name="neuron5" type="svdag" />
+		<lod key="6" name="neuron6" type="svdag" />
+		<lod key="7" name="neuron7" type="svdag" />
+		<lod key="8" name="neuron8" type="svdag" />
+		<lod key="9" name="neuron9" type="svdag" />
+		<lod key="10" name="neuron10" type="svdag" />
+		<lod key="11" name="neuron11" type="svdag" />
+		<lod key="12" name="neuron12" type="svdag" />
+		<lod key="13" name="neuron13" type="svdag" />
+		<lod key="14" name="neuron14" type="svdag" />
+		<lod key="15" name="neuron15" type="svdag" />
+		<lod key="16" name="neuron16" type="svdag" />
+		<lod key="17" name="neuron17" type="svdag" />
+		<lod key="18" name="neuron18" type="svdag" />
+		<lod key="19" name="neuron19" type="svdag" />
+		<lod key="20" name="neuron20" type="svdag" />
+		<lod key="21" name="neuron21" type="svdag" />
+		<lod key="22" name="neuron22" type="svdag" />
+		<lod key="23" name="neuron23" type="svdag" />
+		<lod key="24" name="neuron24" type="svdag" />
+		<lod key="25" name="neuron25" type="svdag" />
+		<lod key="26" name="neuron26" type="svdag" />
+		<lod key="27" name="neuron27" type="svdag" />
+		<lod key="28" name="neuron28" type="svdag" />
+		<lod key="29" name="neuron29" type="svdag" />
+		<lod key="30" name="neuron30" type="svdag" />
+		<lod key="31" name="neuron31" type="svdag" />
+		<lod key="32" name="neuron32" type="svdag" />
+		<lod key="33" name="neuron33" type="svdag" />
+		<lod key="34" name="neuron34" type="svdag" />
+		<lod key="35" name="neuron35" type="svdag" />
+		<lod key="36" name="neuron36" type="svdag" />
+		<lod key="37" name="neuron37" type="svdag" />
+		<lod key="38" name="neuron38" type="svdag" />
+		<lod key="39" name="neuron39" type="svdag" />
+		<lod key="40" name="neuron40" type="svdag" />
+		<lod key="41" name="neuron41" type="svdag" />
+		<lod key="42" name="neuron42" type="svdag" />
+		<lod key="43" name="neuron43" type="svdag" />
+		<lod key="44" name="neuron44" type="svdag" />
+		<lod key="45" name="neuron45" type="svdag" />
+		<lod key="46" name="neuron46" type="svdag" />
+		<lod key="47" name="neuron47" type="svdag" />
+		<lod key="48" name="neuron48" type="svdag" />
+		<lod key="49" name="neuron49" type="svdag" />
+		<lod key="50" name="neuron50" type="svdag" />
+		<lod key="51" name="neuron51" type="svdag" />
+		<lod key="52" name="neuron52" type="svdag" />
+		<lod key="53" name="neuron53" type="svdag" />
+		<lod key="54" name="neuron54" type="svdag" />
+		<lod key="55" name="neuron55" type="svdag" />
+		<lod key="56" name="neuron56" type="svdag" />
+		<lod key="57" name="neuron57" type="svdag" />
+		<lod key="58" name="neuron58" type="svdag" />
+		<lod key="59" name="neuron59" type="svdag" />
+		<lod key="60" name="neuron60" type="svdag" />
+		<lod key="61" name="neuron61" type="svdag" />
+		<lod key="62" name="neuron62" type="svdag" />
+		<lod key="63" name="neuron63" type="svdag" />
+		<lod key="64" name="neuron64" type="svdag" />
+		<lod key="65" name="neuron65" type="svdag" />
+		<lod key="66" name="neuron66" type="svdag" />
+		<lod key="67" name="neuron67" type="svdag" />
+		<lod key="68" name="neuron68" type="svdag" />
+		<lod key="69" name="neuron69" type="svdag" />
+		<lod key="70" name="neuron70" type="svdag" />
+		<lod key="71" name="neuron71" type="svdag" />
+		<lod key="72" name="neuron72" type="svdag" />
+		<lod key="73" name="neuron73" type="svdag" />
+		<lod key="74" name="neuron74" type="svdag" />
+		<lod key="75" name="neuron75" type="svdag" />
+		<lod key="76" name="neuron76" type="svdag" />
+		<lod key="77" name="neuron77" type="svdag" />
+		<lod key="78" name="neuron78" type="svdag" />
+		<lod key="79" name="neuron79" type="svdag" />
+		<lod key="80" name="neuron80" type="svdag" />
+		<lod key="81" name="neuron81" type="svdag" />
+		<lod key="82" name="neuron82" type="svdag" />
+		<lod key="83" name="neuron83" type="svdag" />
+		<lod key="84" name="neuron84" type="svdag" />
+		<lod key="85" name="neuron85" type="svdag" />
+		<lod key="86" name="neuron86" type="svdag" />
+		<lod key="87" name="neuron87" type="svdag" />
+		<lod key="88" name="neuron88" type="svdag" />
+		<lod key="89" name="neuron89" type="svdag" />
+		<lod key="90" name="neuron90" type="svdag" />
+		<lod key="91" name="neuron91" type="svdag" />
+		<lod key="92" name="neuron92" type="svdag" />
+		<lod key="93" name="neuron93" type="svdag" />
+		<lod key="94" name="neuron94" type="svdag" />
+		<lod key="95" name="neuron95" type="svdag" />
+		<lod key="96" name="neuron96" type="svdag" />
+	</lods>
+</volume>

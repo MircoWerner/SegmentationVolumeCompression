@@ -1,0 +1,115 @@
+#version 460
+#extension GL_GOOGLE_include_directive: enable
+#extension GL_EXT_nonuniform_qualifier: enable
+#extension GL_EXT_scalar_block_layout: enable
+#extension GL_EXT_shader_explicit_arithmetic_types_int64: require
+#extension GL_EXT_shader_explicit_arithmetic_types_int16: require
+#extension GL_EXT_buffer_reference2: require
+#extension GL_EXT_ray_tracing: require
+
+#include "../../defines.glsl"
+
+#include "../../utility/constants.glsl"
+#include "../../utility/random.glsl"
+#include "../../raystructs.glsl"
+#include "../../raycommon.glsl"
+
+layout (location = 0) rayPayloadEXT HitPayload payload;
+
+layout (push_constant, std430) uniform PushConstants {
+    int g_pixels_x;
+    int g_pixels_y;
+
+    float g_ray_origin_x;
+    float g_ray_origin_y;
+    float g_ray_origin_z;
+    float g_ray_left_bottom_x;
+    float g_ray_left_bottom_y;
+    float g_ray_left_bottom_z;
+    float g_ray_left_top_x;
+    float g_ray_left_top_y;
+    float g_ray_left_top_z;
+    float g_ray_right_bottom_x;
+    float g_ray_right_bottom_y;
+    float g_ray_right_bottom_z;
+    float g_ray_right_top_x;
+    float g_ray_right_top_y;
+    float g_ray_right_top_z;
+
+    uint g_frame;
+
+    uint g_rng_init;
+    uint g_rng_init_offset;
+};
+
+layout (set = 0, binding = 0) uniform accelerationStructureEXT topLevelAS;
+layout (set = 0, binding = 1, rgba32f) uniform image2D framebuffer;
+layout (set = 0, binding = 2, rgba32f) uniform image2D accumulationBuffer;
+
+layout (std430, set = 0, binding = 3) uniform options_pass {
+    mat4 g_view_to_clip_space;
+    mat4 g_world_to_view_space;
+
+    uint g_num_lights;
+
+    uint g_environment_map;
+    vec2 g_environment_map_rotation;
+    vec3 g_sky_color;
+
+    mat4 g_vp;// view projection of this frame
+    mat4 g_vp_prev;// view projection of previous frame
+
+    uint g_spp;// samples per pixel
+
+    uint g_lod;
+    uint g_lodDisableOnFirstFrame;
+    uint g_lodDistance;
+    uint g_lodDistanceVoxel;
+    uint g_lodDistanceOctree;
+
+    uint g_bounces;
+
+    uint g_num_instances;
+
+    uint g_label_metadata;
+    uint g_label_metadata_jitter_albedo;
+
+    uint g_spheres;
+};
+
+layout (constant_id = 0) const uint g_lodType = 0;
+
+// SCENE
+layout (set = 0, binding = 10, scalar) readonly buffer buffer_object_descriptor { ObjectDescriptor g_objectDescriptors[]; };
+layout (set = 0, binding = 11, scalar) readonly buffer buffer_material { Material g_materials[]; };
+
+layout (buffer_reference, scalar) readonly buffer buffer_aabb { AABB g_aabbs[]; };
+layout (buffer_reference, scalar) readonly buffer buffer_svdag { SVDAG g_svdag[]; };
+layout (buffer_reference, scalar) readonly buffer buffer_svo { uint16_t g_svo[]; };
+
+layout (set = 0, binding = 21) uniform sampler2D textureEnvironment;
+
+#include "../../trace/trace_raytrace.glsl"
+#include "../../environment.glsl"
+#include "../../material.glsl"
+#include "../../bxdf/bsdf/disney_bsdf.glsl"
+
+#include "../pathtrace.glsl"
+
+void main() {
+    const ivec2 pixel = ivec2(gl_LaunchIDEXT.xy);
+    if (any(greaterThanEqual(pixel, ivec2(g_pixels_x, g_pixels_y)))) {
+        return;
+    }
+
+    // load rng
+    uint rngState = (g_rng_init + 1) * g_pixels_x * (pixel.y + 1) + pixel.x + g_rng_init_offset;// add offset to avoid same seed as other passes
+
+    vec3 color = pathtrace(rngState, pixel);
+
+    // accumulate and write framebuffer
+    uint frame = (g_lod == 0 || g_lodDisableOnFirstFrame == 0) ? g_frame : (g_frame == 0 ? 0 : g_frame - 1);
+    const vec3 newColor = mix(imageLoad(accumulationBuffer, pixel).rgb, color, 1.0 / float(frame + 1));
+    imageStore(accumulationBuffer, pixel, vec4(newColor, 1.0));
+    imageStore(framebuffer, pixel, vec4(newColor, 1.0));
+}

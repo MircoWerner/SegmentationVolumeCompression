@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<scene>
+	<volumes>
+		<volume name="mouse/svdag" translate="0 0 0" scale="1 1 1" />
+	</volumes>
+	<camera position="10629 9683 -4337" rotation="0 2.264 2.081" speed="1000" />
+	<material generator="cells" count="512" />
+	<renderer maxFrames="1024" tonemapper="1" renderer="0" debug="0" spp="1" lod="0" lodDisableOnFirstFrame="false" lodDistance="false" lodDistanceVoxel="512" lodDistanceOctree="1024" bounces="32" />
+	<window width="1080" height="1920" />
+</scene>

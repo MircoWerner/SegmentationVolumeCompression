@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<volume>
+	<info type="mouse" folder="mouse/svdag_occupancy_field_merged" />
+	<aabbs>
+		<aabb name="neuron1" type="default" lod="0" enabled="true" />
+		<aabb name="neuron2" type="default" lod="0" enabled="true" />
+		<aabb name="neuron3" type="default" lod="0" enabled="true" />
+		<aabb name="neuron4" type="default" lod="0" enabled="true" />
+		<aabb name="neuron5" type="default" lod="0" enabled="true" />
+		<aabb name="neuron6" type="default" lod="0" enabled="true" />
+		<aabb name="neuron7" type="default" lod="0" enabled="true" />
+		<aabb name="neuron8" type="default" lod="0" enabled="true" />
+		<aabb name="neuron9" type="default" lod="0" enabled="true" />
+		<aabb name="neuron10" type="default" lod="0" enabled="true" />
+		<aabb name="neuron11" type="default" lod="0" enabled="true" />
+		<aabb name="neuron12" type="default" lod="0" enabled="true" />
+		<aabb name="neuron13" type="default" lod="0" enabled="true" />
+		<aabb name="neuron14" type="default" lod="0" enabled="true" />
+		<aabb name="neuron15" type="default" lod="0" enabled="true" />
+		<aabb name="neuron16" type="default" lod="0" enabled="true" />
+		<aabb name="neuron17" type="default" lod="0" enabled="true" />
+		<aabb name="neuron18" type="default" lod="0" enabled="true" />
+		<aabb name="neuron19" type="default" lod="0" enabled="true" />
+		<aabb name="neuron20" type="default" lod="0" enabled="true" />
+		<aabb name="neuron21" type="default" lod="0" enabled="true" />
+		<aabb name="neuron22" type="default" lod="0" enabled="true" />
+		<aabb name="neuron23" type="default" lod="0" enabled="true" />
+		<aabb name="neuron24" type="default" lod="0" enabled="true" />
+		<aabb name="neuron25" type="default" lod="0" enabled="true" />
+		<aabb name="neuron26" type="default" lod="0" enabled="true" />
+		<aabb name="neuron27" type="default" lod="0" enabled="true" />
+		<aabb name="neuron28" type="default" lod="0" enabled="true" />
+		<aabb name="neuron29" type="default" lod="0" enabled="true" />
+		<aabb name="neuron30" type="default" lod="0" enabled="true" />
+		<aabb name="neuron31" type="default" lod="0" enabled="true" />
+		<aabb name="neuron32" type="default" lod="0" enabled="true" />
+		<aabb name="neuron33" type="default" lod="0" enabled="true" />
+		<aabb name="neuron34" type="default" lod="0" enabled="true" />
+		<aabb name="neuron35" type="default" lod="0" enabled="true" />
+		<aabb name="neuron36" type="default" lod="0" enabled="true" />
+		<aabb name="neuron37" type="default" lod="0" enabled="true" />
+		<aabb name="neuron38" type="default" lod="0" enabled="true" />
+		<aabb name="neuron39" type="default" lod="0" enabled="true" />
+		<aabb name="neuron40" type="default" lod="0" enabled="true" />
+		<aabb name="neuron41" type="default" lod="0" enabled="true" />
+		<aabb name="neuron42" type="default" lod="0" enabled="true" />
+		<aabb name="neuron43" type="default" lod="0" enabled="true" />
+		<aabb name="neuron44" type="default" lod="0" enabled="true" />
+		<aabb name="neuron45" type="default" lod="0" enabled="true" />
+		<aabb name="neuron46" type="default" lod="0" enabled="true" />
+		<aabb name="neuron47" type="default" lod="0" enabled="true" />
+		<aabb name="neuron48" type="default" lod="0" enabled="true" />
+		<aabb name="neuron49" type="default" lod="0" enabled="true" />
+		<aabb name="neuron50" type="default" lod="0" enabled="true" />
+		<aabb name="neuron51" type="default" lod="0" enabled="true" />
+		<aabb name="neuron52" type="default" lod="0" enabled="true" />
+		<aabb name="neuron53" type="default" lod="0" enabled="true" />
+		<aabb name="neuron54" type="default" lod="0" enabled="true" />
+		<aabb name="neuron55" type="default" lod="0" enabled="true" />
+		<aabb name="neuron56" type="default" lod="0" enabled="true" />
+		<aabb name="neuron57" type="default" lod="0" enabled="true" />
+		<aabb name="neuron58" type="default" lod="0" enabled="true" />
+		<aabb name="neuron59" type="default" lod="0" enabled="true" />
+		<aabb name="neuron60" type="default" lod="0" enabled="true" />
+		<aabb name="neuron61" type="default" lod="0" enabled="true" />
+		<aabb name="neuron62" type="default" lod="0" enabled="true" />
+		<aabb name="neuron63" type="default" lod="0" enabled="true" />
+		<aabb name="neuron64" type="default" lod="0" enabled="true" />
+		<aabb name="neuron65" type="default" lod="0" enabled="true" />
+		<aabb name="neuron66" type="default" lod="0" enabled="true" />
+		<aabb name="neuron67" type="default" lod="0" enabled="true" />
+		<aabb name="neuron68" type="default" lod="0" enabled="true" />
+		<aabb name="neuron69" type="default" lod="0" enabled="true" />
+		<aabb name="neuron70" type="default" lod="0" enabled="true" />
+		<aabb name="neuron71" type="default" lod="0" enabled="true" />
+		<aabb name="neuron72" type="default" lod="0" enabled="true" />
+		<aabb name="neuron73" type="default" lod="0" enabled="true" />
+		<aabb name="neuron74" type="default" lod="0" enabled="true" />
+		<aabb name="neuron75" type="default" lod="0" enabled="true" />
+		<aabb name="neuron76" type="default" lod="0" enabled="true" />
+		<aabb name="neuron77" type="default" lod="0" enabled="true" />
+		<aabb name="neuron78" type="default" lod="0" enabled="true" />
+		<aabb name="neuron79" type="default" lod="0" enabled="true" />
+		<aabb name="neuron80" type="default" lod="0" enabled="true" />
+		<aabb name="neuron81" type="default" lod="0" enabled="true" />
+		<aabb name="neuron82" type="default" lod="0" enabled="true" />
+		<aabb name="neuron83" type="default" lod="0" enabled="true" />
+		<aabb name="neuron84" type="default" lod="0" enabled="true" />
+		<aabb name="neuron85" type="default" lod="0" enabled="true" />
+		<aabb name="neuron86" type="default" lod="0" enabled="true" />
+		<aabb name="neuron87" type="default" lod="0" enabled="true" />
+		<aabb name="neuron88" type="default" lod="0" enabled="true" />
+		<aabb name="neuron89" type="default" lod="0" enabled="true" />
+		<aabb name="neuron90" type="default" lod="0" enabled="true" />
+		<aabb name="neuron91" type="default" lod="0" enabled="true" />
+		<aabb name="neuron92" type="default" lod="0" enabled="true" />
+		<aabb name="neuron93" type="default" lod="0" enabled="true" />
+		<aabb name="neuron94" type="default" lod="0" enabled="true" />
+		<aabb name="neuron95" type="default" lod="0" enabled="true" />
+		<aabb name="neuron96" type="default" lod="0" enabled="true" />
+	</aabbs>
+	<lods>
+		<lod key="0" name="neurons" type="svdag_occupancy_field" />
+	</lods>
+</volume>

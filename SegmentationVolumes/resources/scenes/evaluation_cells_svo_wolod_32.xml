@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<scene>
+	<volumes>
+		<volume name="cells/svo" translate="0 0 0" scale="1 1 1" />
+	</volumes>
+	<camera position="99 740 -215" rotation="0 3.660 1.907" speed="50" />
+	<material generator="cells" count="256" labelMetadata="true" labelMetadataJitterAlbedo="true" />
+	<renderer maxFrames="1024" tonemapper="1" renderer="0" debug="0" spp="1" lod="0" lodDisableOnFirstFrame="false" lodDistance="false" lodDistanceVoxel="512" lodDistanceOctree="1024" bounces="32" />
+	<window width="1920" height="1080" />
+</scene>

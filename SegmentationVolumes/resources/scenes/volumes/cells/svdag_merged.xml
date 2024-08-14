@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<volume>
+    <info type="nastja" folder="cells/svdag_merged"/>
+    <aabbs>
+        <aabb name="type1" type="default" lod="0" enabled="true"/>
+        <aabb name="type6" type="default" lod="0" enabled="true"/>
+        <aabb name="type7" type="default" lod="0" enabled="true"/>
+        <aabb name="type8" type="default" lod="0" enabled="true"/>
+        <aabb name="type9" type="default" lod="0" enabled="true"/>
+        <aabb name="type10" type="default" lod="0" enabled="true"/>
+        <aabb name="type11" type="default" lod="0" enabled="true"/>
+        <aabb name="type12" type="default" lod="0" enabled="true"/>
+        <aabb name="type13" type="default" lod="0" enabled="true"/>
+        <aabb name="type14" type="default" lod="0" enabled="true"/>
+        <aabb name="type15" type="default" lod="0" enabled="true"/>
+        <aabb name="type16" type="default" lod="0" enabled="true"/>
+        <aabb name="type17" type="default" lod="0" enabled="true"/>
+        <aabb name="type18" type="default" lod="0" enabled="true"/>
+        <aabb name="type19" type="default" lod="0" enabled="true"/>
+        <aabb name="type20" type="default" lod="0" enabled="true"/>
+        <aabb name="type21" type="default" lod="0" enabled="true"/>
+        <aabb name="type22" type="default" lod="0" enabled="true"/>
+        <aabb name="type23" type="default" lod="0" enabled="true"/>
+        <aabb name="type24" type="default" lod="0" enabled="true"/>
+        <aabb name="type25" type="default" lod="0" enabled="true"/>
+        <aabb name="type26" type="default" lod="0" enabled="true"/>
+        <aabb name="type27" type="default" lod="0" enabled="true"/>
+    </aabbs>
+    <lods>
+        <lod key="0" name="types" type="svdag"/>
+    </lods>
+</volume>

@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<volume>
+	<info type="mouse" folder="mouse/svdag_occupancy_field" />
+	<aabbs>
+		<aabb name="neuron1" type="default" lod="1" enabled="true" />
+		<aabb name="neuron3" type="default" lod="3" enabled="true" />
+		<aabb name="neuron5" type="default" lod="5" enabled="true" />
+		<aabb name="neuron15" type="default" lod="15" enabled="true" />
+	</aabbs>
+	<lods>
+		<lod key="1" name="neuron1" type="svdag_occupancy_field" />
+		<lod key="2" name="neuron2" type="svdag_occupancy_field" />
+		<lod key="3" name="neuron3" type="svdag_occupancy_field" />
+		<lod key="4" name="neuron4" type="svdag_occupancy_field" />
+		<lod key="5" name="neuron5" type="svdag_occupancy_field" />
+		<lod key="6" name="neuron6" type="svdag_occupancy_field" />
+		<lod key="7" name="neuron7" type="svdag_occupancy_field" />
+		<lod key="8" name="neuron8" type="svdag_occupancy_field" />
+		<lod key="9" name="neuron9" type="svdag_occupancy_field" />
+		<lod key="10" name="neuron10" type="svdag_occupancy_field" />
+		<lod key="11" name="neuron11" type="svdag_occupancy_field" />
+		<lod key="12" name="neuron12" type="svdag_occupancy_field" />
+		<lod key="13" name="neuron13" type="svdag_occupancy_field" />
+		<lod key="14" name="neuron14" type="svdag_occupancy_field" />
+		<lod key="15" name="neuron15" type="svdag_occupancy_field" />
+		<lod key="16" name="neuron16" type="svdag_occupancy_field" />
+		<lod key="17" name="neuron17" type="svdag_occupancy_field" />
+		<lod key="18" name="neuron18" type="svdag_occupancy_field" />
+		<lod key="19" name="neuron19" type="svdag_occupancy_field" />
+		<lod key="20" name="neuron20" type="svdag_occupancy_field" />
+		<lod key="21" name="neuron21" type="svdag_occupancy_field" />
+		<lod key="22" name="neuron22" type="svdag_occupancy_field" />
+		<lod key="23" name="neuron23" type="svdag_occupancy_field" />
+		<lod key="24" name="neuron24" type="svdag_occupancy_field" />
+		<lod key="25" name="neuron25" type="svdag_occupancy_field" />
+		<lod key="26" name="neuron26" type="svdag_occupancy_field" />
+		<lod key="27" name="neuron27" type="svdag_occupancy_field" />
+		<lod key="28" name="neuron28" type="svdag_occupancy_field" />
+		<lod key="29" name="neuron29" type="svdag_occupancy_field" />
+		<lod key="30" name="neuron30" type="svdag_occupancy_field" />
+		<lod key="31" name="neuron31" type="svdag_occupancy_field" />
+		<lod key="32" name="neuron32" type="svdag_occupancy_field" />
+		<lod key="33" name="neuron33" type="svdag_occupancy_field" />
+		<lod key="34" name="neuron34" type="svdag_occupancy_field" />
+		<lod key="35" name="neuron35" type="svdag_occupancy_field" />
+		<lod key="36" name="neuron36" type="svdag_occupancy_field" />
+		<lod key="37" name="neuron37" type="svdag_occupancy_field" />
+		<lod key="38" name="neuron38" type="svdag_occupancy_field" />
+		<lod key="39" name="neuron39" type="svdag_occupancy_field" />
+		<lod key="40" name="neuron40" type="svdag_occupancy_field" />
+		<lod key="41" name="neuron41" type="svdag_occupancy_field" />
+		<lod key="42" name="neuron42" type="svdag_occupancy_field" />
+		<lod key="43" name="neuron43" type="svdag_occupancy_field" />
+		<lod key="44" name="neuron44" type="svdag_occupancy_field" />
+		<lod key="45" name="neuron45" type="svdag_occupancy_field" />
+		<lod key="46" name="neuron46" type="svdag_occupancy_field" />
+		<lod key="47" name="neuron47" type="svdag_occupancy_field" />
+		<lod key="48" name="neuron48" type="svdag_occupancy_field" />
+		<lod key="49" name="neuron49" type="svdag_occupancy_field" />
+		<lod key="50" name="neuron50" type="svdag_occupancy_field" />
+		<lod key="51" name="neuron51" type="svdag_occupancy_field" />
+		<lod key="52" name="neuron52" type="svdag_occupancy_field" />
+		<lod key="53" name="neuron53" type="svdag_occupancy_field" />
+		<lod key="54" name="neuron54" type="svdag_occupancy_field" />
+		<lod key="55" name="neuron55" type="svdag_occupancy_field" />
+		<lod key="56" name="neuron56" type="svdag_occupancy_field" />
+		<lod key="57" name="neuron57" type="svdag_occupancy_field" />
+		<lod key="58" name="neuron58" type="svdag_occupancy_field" />
+		<lod key="59" name="neuron59" type="svdag_occupancy_field" />
+		<lod key="60" name="neuron60" type="svdag_occupancy_field" />
+		<lod key="61" name="neuron61" type="svdag_occupancy_field" />
+		<lod key="62" name="neuron62" type="svdag_occupancy_field" />
+		<lod key="63" name="neuron63" type="svdag_occupancy_field" />
+		<lod key="64" name="neuron64" type="svdag_occupancy_field" />
+		<lod key="65" name="neuron65" type="svdag_occupancy_field" />
+		<lod key="66" name="neuron66" type="svdag_occupancy_field" />
+		<lod key="67" name="neuron67" type="svdag_occupancy_field" />
+		<lod key="68" name="neuron68" type="svdag_occupancy_field" />
+		<lod key="69" name="neuron69" type="svdag_occupancy_field" />
+		<lod key="70" name="neuron70" type="svdag_occupancy_field" />
+		<lod key="71" name="neuron71" type="svdag_occupancy_field" />
+		<lod key="72" name="neuron72" type="svdag_occupancy_field" />
+		<lod key="73" name="neuron73" type="svdag_occupancy_field" />
+		<lod key="74" name="neuron74" type="svdag_occupancy_field" />
+		<lod key="75" name="neuron75" type="svdag_occupancy_field" />
+		<lod key="76" name="neuron76" type="svdag_occupancy_field" />
+		<lod key="77" name="neuron77" type="svdag_occupancy_field" />
+		<lod key="78" name="neuron78" type="svdag_occupancy_field" />
+		<lod key="79" name="neuron79" type="svdag_occupancy_field" />
+		<lod key="80" name="neuron80" type="svdag_occupancy_field" />
+		<lod key="81" name="neuron81" type="svdag_occupancy_field" />
+		<lod key="82" name="neuron82" type="svdag_occupancy_field" />
+		<lod key="83" name="neuron83" type="svdag_occupancy_field" />
+		<lod key="84" name="neuron84" type="svdag_occupancy_field" />
+		<lod key="85" name="neuron85" type="svdag_occupancy_field" />
+		<lod key="86" name="neuron86" type="svdag_occupancy_field" />
+		<lod key="87" name="neuron87" type="svdag_occupancy_field" />
+		<lod key="88" name="neuron88" type="svdag_occupancy_field" />
+		<lod key="89" name="neuron89" type="svdag_occupancy_field" />
+		<lod key="90" name="neuron90" type="svdag_occupancy_field" />
+		<lod key="91" name="neuron91" type="svdag_occupancy_field" />
+		<lod key="92" name="neuron92" type="svdag_occupancy_field" />
+		<lod key="93" name="neuron93" type="svdag_occupancy_field" />
+		<lod key="94" name="neuron94" type="svdag_occupancy_field" />
+		<lod key="95" name="neuron95" type="svdag_occupancy_field" />
+		<lod key="96" name="neuron96" type="svdag_occupancy_field" />
+	</lods>
+</volume>

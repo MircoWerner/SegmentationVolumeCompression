@@ -1,0 +1,49 @@
+#version 460
+#extension GL_GOOGLE_include_directive: enable
+#extension GL_EXT_nonuniform_qualifier: enable
+#extension GL_EXT_scalar_block_layout: enable
+#extension GL_EXT_shader_explicit_arithmetic_types_int64: require
+#extension GL_EXT_shader_explicit_arithmetic_types_int16: require
+#extension GL_EXT_buffer_reference2: require
+#extension GL_EXT_ray_tracing: require
+
+#include "../../defines.glsl"
+
+#include "../../utility/constants.glsl"
+#include "../../utility/random.glsl"
+#include "../../raystructs.glsl"
+#include "../../raycommon.glsl"
+
+layout (std430, set = 1, binding = 3) uniform options_pass {
+    float g_ray_origin_x;
+    float g_ray_origin_y;
+    float g_ray_origin_z;
+
+    uint g_lod;
+    uint g_lodDisableOnFirstFrame;
+    uint g_lodDistance;
+    uint g_lodDistanceVoxel;
+    uint g_lodDistanceOctree;
+
+    uint g_frame;
+
+    uint g_spheres;
+};
+
+layout (constant_id = 0) const uint g_lodType = 0;
+
+// SCENE
+layout (set = 1, binding = 10, scalar) readonly buffer buffer_object_descriptor { ObjectDescriptor g_objectDescriptors[]; };
+
+layout (buffer_reference, scalar) readonly buffer buffer_aabb { AABB g_aabbs[]; };
+layout (buffer_reference, scalar) readonly buffer buffer_svdag { SVDAG g_svdag[]; };
+layout (buffer_reference, scalar) readonly buffer buffer_svo { uint16_t g_svo[]; };
+
+#include "../../trace/intersect.glsl"
+
+void main() {
+    float tHit;
+    if (intersect(gl_InstanceCustomIndexEXT, gl_PrimitiveID, gl_WorldRayOriginEXT, gl_WorldRayDirectionEXT, gl_ObjectToWorldEXT, gl_WorldToObjectEXT, tHit)) {
+        reportIntersectionEXT(tHit, 0);
+    }
+}
